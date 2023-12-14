@@ -13,15 +13,25 @@ const getUser = (req, res) => {
 }
 
 const createUser = (req, res) => {
-    const user = new userSchema({
-        firstname : req.body.firstname,
-        email : req.body.email,
-        password : req.body.password,
-        username : req.body.username,
-    })
-    user.save()
+    userSchema.find({email : req.body.email})
     .then(data => {
-        res.status(200).json({data})
+        if(data.length >= 1){
+            res.status(402).json({message : "user already exist"})
+        }else{
+            const user = new userSchema({
+                firstname : req.body.firstname,
+                email : req.body.email,
+                password : req.body.password,
+                username : req.body.username,
+            })
+            user.save()
+            .then(data => {
+                res.status(200).json({data})
+            })
+            .catch(err => {
+                res.status(500).json({err})
+            }) 
+        }
     })
     .catch(err => {
         res.status(500).json({err})
