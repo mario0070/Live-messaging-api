@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const morgan = require("morgan")
 const cors = require("cors")
+const userRoute = require("./api/routes/userRoute")
 
 app.use(express.json())
 app.use(morgan("dev"))
@@ -28,6 +29,8 @@ app.get("/", (req, res) => {
         author : "muhammadjamiu"
     })
 })
+
+app.use("/user", userRoute)
 
 app.use((req, res) => {
     res.status(404).json({
