@@ -16,7 +16,7 @@ const createUser = (req, res) => {
     userSchema.find({email : req.body.email})
     .then(data => {
         if(data.length >= 1){
-            res.status(402).json({message : "user already exist"})
+            res.status(403).json({message : "user already exist"})
         }else{
             bcrypt.hash(req.body.password, 10, (err, hash) => {
                 const user = new userSchema({
@@ -27,7 +27,11 @@ const createUser = (req, res) => {
                 })
                 user.save()
                 .then(data => {
-                    res.status(200).json({data})
+                    const token = jwt.sign({
+                        email : data.email, 
+                        firstname : data.username,}, "secret", {expiresIn : "12h"}
+                    )
+                    res.status(200).json({data, token})
                 })
                 .catch(err => {
                     res.status(500).json({err})
@@ -49,7 +53,11 @@ const loginUser = (req, res) => {
         }else{
             bcrypt.compare(req.body.password, data[0].password, (err, hash) => {
                 if(hash){
-                    res.json(data)
+                    const token = jwt.sign({
+                        email : data[0].email, 
+                        firstname : data[0].username,}, "secret", {expiresIn : "12h"}
+                    )
+                    res.status(200).json({data, token})
                 }else{
                     res.status(403).json({message : "invalid credential"})
                 }

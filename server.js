@@ -7,6 +7,10 @@ const io = new Server(server,{cors:{origin: "*"}});
 
 io.on('connection', (socket) => {
     console.log(socket.id);
+    socket.on("msg", (msg) => {
+        console.log(msg)
+        socket.emit("msg", msg)
+    })
 });
 
 const dbUrl = "mongodb+srv://larvish:larvish007@chat.jwmup1j.mongodb.net/chatApp?retryWrites=true&w=majority"
