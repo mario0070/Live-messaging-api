@@ -4,6 +4,7 @@ const userSchema = require("../models/userModel")
 
 const getUser = (req, res) => {
     userSchema.find()
+    .sort({createdAt : "desc"})
     .then(data => {
         res.status(200).json({data})
     })
