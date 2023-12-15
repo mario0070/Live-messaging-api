@@ -7,9 +7,8 @@ const io = new Server(server,{cors:{origin: "*"}});
 
 io.on('connection', (socket) => {
     console.log(socket.id);
-    socket.on("msg", (msg) => {
-        console.log(msg)
-        socket.emit("msg", msg)
+    socket.on("userAuth",msg => {
+        socket.broadcast.emit("userAuth", msg)
     })
 });
 
