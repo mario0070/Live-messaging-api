@@ -3,8 +3,8 @@ const mongoose = require("mongoose")
 const schema = mongoose.Schema
 
 const conversationSchema = new schema({
-    sender : {type : String, required : true},
-    reciever : {type : String, required : true},
+    sender : {type : schema.Types.ObjectId, required : true, ref : "User"},
+    reciever : {type : schema.Types.ObjectId, required : true, ref : "User"},
     message : {type : String, required : true},
 },{timestamps : true})
 

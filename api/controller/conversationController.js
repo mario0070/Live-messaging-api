@@ -4,6 +4,8 @@ const conversationSchema = require("../models/conversationModel")
 
 const allConversation = (req, res) => {
     conversationSchema.find()
+    .populate("sender")
+    .populate("reciever")
     .then(data => {
         res.status(200).json({data})
     })
