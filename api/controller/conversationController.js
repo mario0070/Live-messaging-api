@@ -1,0 +1,34 @@
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const conversationSchema = require("../models/conversationModel")
+
+const allConversation = (req, res) => {
+    conversationSchema.find()
+    .then(data => {
+        res.status(200).json({data})
+    })
+    .catch(err => {
+        res.status(500).json({error:err})
+    })
+}
+
+const createMsg = (req, res) => {
+    const msg = new conversationSchema({
+        message : req.body.message,
+        sender : req.body.sender,
+        reciever : req.body.reciever,
+    })
+
+    msg.save()
+    .then(data => {
+        res.status(200).json({data})
+    })
+    .catch(err => {
+        res.status(500).json({error:err})
+    })
+}
+
+module.exports = {
+    allConversation,
+    createMsg,
+}
