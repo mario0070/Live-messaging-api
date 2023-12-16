@@ -71,8 +71,14 @@ const loginUser = (req, res) => {
     })
 }
 
+const googleLogin = (req, res) => {
+    const url = `http://accounts.google.com/o/oauth2/v2/auth?client_id=${0}&redirect_uri=${2}&response_type=code&scope=profile email1`
+    res.redirect("")
+}
+
 module.exports = {
     getUser,
     createUser,
     loginUser,
+    googleLogin,
 }
