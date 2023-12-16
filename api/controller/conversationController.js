@@ -30,7 +30,18 @@ const createMsg = (req, res) => {
     })
 }
 
+const deleteConversation = (req, res) => {
+    conversationSchema.findByIdAndDelete(req.body.id)
+    .then(() => {
+        res.status(200).json({message : "deleted"})
+    })
+    .catch(err => {
+        res.status(500).json({error :err})
+    })
+}
+
 module.exports = {
     allConversation,
     createMsg,
+    deleteConversation,
 }
