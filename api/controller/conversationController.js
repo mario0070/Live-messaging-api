@@ -40,8 +40,22 @@ const deleteConversation = (req, res) => {
     })
 }
 
+const getSingleConversation = (req, res) => {
+    conversationSchema.find({
+        sender : req.body.sender,
+        reciever : req.body.reciever
+    })
+    .then(data => {
+        res.status(200).json({data})
+    })
+    .catch(err => {
+        res.status(500).json({error : err})
+    })
+}
+
 module.exports = {
     allConversation,
     createMsg,
     deleteConversation,
+    getSingleConversation,
 }
