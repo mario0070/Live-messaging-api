@@ -75,7 +75,7 @@ const googleLogin = (req, res) => {
     const secret = "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"
     const client = "907972354510-kjruc8vpb06ku0ni5is7jtujopscjehs.apps.googleusercontent.com"
     const redirect_url = "http://127.0.0.1:5173/google-calback"
-    const url = `http://accounts.google.com/o/oauth2/v2/auth?client_id=${client}&redirect_uri=${redirect_url}&response_type=code&scope=userinfo.email`
+    const url = `http://accounts.google.com/o/oauth2/v2/auth?client_id=${client}&redirect_uri=${redirect_url}&response_type=code&scope=profile`
     res.status(200).json({url})
     // res.redirect(url)
 }
