@@ -4,6 +4,7 @@ const morgan = require("morgan")
 const cors = require("cors")
 const userRoute = require("./api/routes/userRoute")
 const conversationRoute = require("./api/routes/conversationRoute")
+const botRoute = require("./api/routes/botRoute")
 const checkAuth = require("./api/middleware/checkAuth")
 
 app.use(express.json())
@@ -34,6 +35,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRoute)
 app.use("/chat", conversationRoute)
+app.use("/bot", botRoute)
 
 app.use((req, res) => {
     res.status(404).json({
